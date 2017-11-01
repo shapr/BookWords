@@ -1,0 +1,44 @@
+name:                BookWords
+version:             0.1.0.0
+github:              shapr/BookWords
+license:             BSD3
+author:              Shae Erisson
+maintainer:          shae@ScannedInAvian.com
+copyright:           copyleft
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:
+# description:
+# category:            Web
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  BookWords-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - BookWords
+
+tests:
+  BookWords-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - BookWords
