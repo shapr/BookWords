@@ -1,9 +1,9 @@
 module Main where
 
-import           Lib
+-- import           Lib
 
 main :: IO ()
-main = someFunc
+main = print "hi" -- someFunc
 
 
 
@@ -55,24 +55,33 @@ mySeason :: Season
 mySeason = Summer
 
 -- type aliases
-type Name = String
-type Age = Int
+-- type Name = String
+-- type Age = Int
 
 -- more complex types
-data People = Person Name Age
+data People = Person String Int
 
 -- polymorphic (parameterized) datatype
 data Tree a = Nil | Node (Tree a) a (Tree a) deriving Show
 
-mytree = Node Nil 1 Nil
+data IntTree = NilI | NodeI (IntTree) Int (IntTree) deriving Show
+
+mytree = Node Nil 5 Nil
 
 otherthing = Node (mytree) 2 Nil
 
 treesum Nil          = 0
-treesum (Node l n r) = howmany l + n + howmany r
+treesum (Node l n r) = treesum l + n + treesum r
 
 howmany Nil          = 0
 howmany (Node l n r) = howmany l + 1 + howmany r
+
+howmanyleaves Nil = 1
+howmanyleaves (Node l n r) = howmanyleaves l + 0 + howmanyleaves r
+
+howmanydeadends Nil = 0
+howmanydeadends (Node Nil _ Nil) = 1
+howmanydeadends (Node l n r) = howmanydeadends l + 0 + howmanydeadends r
 
 instance Functor Tree where
     fmap f Nil            = Nil
