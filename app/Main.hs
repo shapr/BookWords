@@ -1,3 +1,4 @@
+{-# LANGUAGE GADTSyntax #-}
 module Main where
 
 -- import           Lib
@@ -46,8 +47,17 @@ addOne = add 1
 
 -- define your own datatype
 
-data Temp = Cold | Hot
-data Season = Winter | Spring | Summer | Fall deriving (Show,Enum)
+-- data Temp = Cold | Hot
+data Temp where
+  Cold :: Temp
+  Hot :: Temp
+-- data Season = Winter | Spring | Summer | Fall deriving (Show,Enum)
+data Season where
+  Winter :: Season
+  Spring :: Season
+  Summer :: Season
+  Fall :: Season
+    deriving (Show, Enum)
 -- 'Show' is how you turn a value into a string for display
 -- deriving means "write the show code for me"
 
@@ -59,12 +69,21 @@ mySeason = Summer
 -- type Age = Int
 
 -- more complex types
-data People = Person String Int
+-- data People = Person String Int
+data People where
+  Person :: String -> Int -> People
 
 -- polymorphic (parameterized) datatype
-data Tree a = Nil | Node (Tree a) a (Tree a) deriving Show
+-- data Tree a = Nil | Node (Tree a) a (Tree a) deriving Show
+data Tree a where
+  Nil :: Tree a
+  Node :: Tree a -> a -> Tree a -> Tree a
 
-data IntTree = NilI | NodeI (IntTree) Int (IntTree) deriving Show
+-- data IntTree = NilI | NodeI (IntTree) Int (IntTree) deriving Show
+data IntTree where
+  NilI :: IntTree
+  NodeI :: IntTree -> Int -> IntTree
+    deriving Show
 
 mytree = Node Nil 5 Nil
 
